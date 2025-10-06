@@ -52,51 +52,18 @@ def load_approved_vagus_marker_terms():
     return vagus_marker_terms
 
 
-def read_case_vagus_termslist(term_list_location):
-    """
-    Loads CASE term list for vagus trunk and branch data from supplied spreadsheet.
-    Only vagus structures are read.
-    :param term_list_location: location of the xlsx file with terms used by CASE
-    :return:
-        vagus_branches (dict): dictionary mapping vagus branch names to their annotations terms
-    """
+def add_trunk_annotation_terms():
 
-    if not os.path.exists(term_list_location):
-        return None, None
-
-    df = pd.read_excel(term_list_location, sheet_name='Full Termlist')
-    df = df[['Unnamed: 0', 'ILX UUID']]
-
-    # Select rows for 'REVA Vagus Structures'
-    start_row = df[df.eq('REVA Vagus Structures').any(axis=1)].index[0]
-    end_row = df[start_row:].isnull().all(axis=1).idxmax()
-    df_vagus_structures = df.loc[start_row:end_row - 1]
-    df_vagus_structures = df_vagus_structures[df_vagus_structures['ILX UUID'].str.contains('http://uri.interlex.org/base/ilx_', na=False)]
-    vagus_branch_terms = df_vagus_structures.set_index('Unnamed: 0')['ILX UUID'].to_dict()
-
-    return vagus_branch_terms
-
-
-def read_case_vagus_anatomy_termslist(anatomy_path):
-    """
-    Loads CASE term list for vagus trunk and branch data from supplied spreadsheet.
-    Only vagus structures are read.
-    :param anatomy_path: location of the xlsx file with terms used by CASE
-    :return:
-        vagus_branches (dict): dictionary mapping vagus branch names to their annotations terms
-    """
-
-    if not os.path.exists(anatomy_path):
-        return None, None
-
-    df = pd.read_excel(anatomy_path, sheet_name='Full Termlist')
-    df = df[['Unnamed: 0', 'ILX UUID']]
-
-    # Select rows for 'REVA Vagus Structures'
-    start_row = df[df.eq('REVA Vagus Structures').any(axis=1)].index[0]
-    end_row = df[start_row:].isnull().all(axis=1).idxmax()
-    df_vagus_structures = df.loc[start_row:end_row - 1]
-    df_vagus_structures = df_vagus_structures[df_vagus_structures['ILX UUID'].str.contains('http://uri.interlex.org/base/ilx_', na=False)]
-    vagus_branch_terms = df_vagus_structures.set_index('Unnamed: 0')['ILX UUID'].to_dict()
-
-    return vagus_branch_terms
+    trunk_terms = {
+        "left vagus nerve": "ILX:0785628",
+        "left cervical trunk": "ILX:0794142",
+        "left cervical vagus nerve": "ILX:0794142",
+        "left thoracic trunk": "ILX:0787543",
+        "left thoracic vagus nerve": "ILX:0787543",
+        "right vagus nerve": "ILX:0789705",
+        "right cervical trunk": "ILX:0794141",
+        "right cervical vagus nerve": "ILX:0794141",
+        "right thoracic trunk": "ILX:0786664",
+        "right thoracic vagus nerve": "ILX:0786664"
+    }
+    return trunk_terms

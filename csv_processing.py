@@ -11,12 +11,12 @@ trunk_keywords = ['left cervical trunk', 'right cervical trunk', 'left thoracic 
                   'left vagus nerve', 'right vagus nerve']
 branch_keywords = ['branch', 'nerve']
 non_vagus_branches_keywords = [
-    'carotid sinus nerve',
-    'glossopharyngeal nerve',
-    'hypoglossal nerve',
-    'spinal accessory nerve',
-    'superior root of ansa cervicalis',
-    'cervical sympathetic trunk'
+    # 'carotid sinus nerve',
+    # 'glossopharyngeal nerve',
+    # 'hypoglossal nerve',
+    # 'spinal accessory nerve',
+    # 'superior root of ansa cervicalis',
+    # 'cervical sympathetic trunk'
 ]
 
 
@@ -31,7 +31,8 @@ def find_tracing_csv_files(microct_path):
         # find csv segmentation files in the supplied folder
         segment_paths = [f.path for f in os.scandir(microct_path) if f.is_dir()]
         for segment_path in segment_paths:
-            segment_name = os.path.basename(os.path.normpath(segment_path))
+            segment_filename = os.path.basename(os.path.normpath(segment_path))
+            segment_name = list(filter(lambda x: 'TL' in x or 'CL' in x, segment_filename.split('-')))[0]
 
             # find all csv files in a given segment
             csv_files = []
