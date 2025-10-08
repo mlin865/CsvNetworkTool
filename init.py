@@ -98,7 +98,7 @@ if __name__ == "__main__":
     nerve_morphology_path = os.path.join(input_directory, "NerveMorphology")
     fascicle_path = os.path.join(input_directory, "FascicleMorphology")
 
-    output_directory = r"Z:\Pennsieve datasets\426 - Scaffold map - Human vagus nerve\in preparation\derivative\sub-SR042\L"
+    output_directory = r"Z:\Pennsieve datasets\426 - Scaffold map - Human vagus nerve\in preparation\derivative\sub-SR042\L\010-data-preparation"
 
     stitching_tolerance = 110000.0
     main(anatomy_path,

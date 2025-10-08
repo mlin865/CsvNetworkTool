@@ -32,7 +32,8 @@ def find_tracing_csv_files(microct_path):
         segment_paths = [f.path for f in os.scandir(microct_path) if f.is_dir()]
         for segment_path in segment_paths:
             segment_filename = os.path.basename(os.path.normpath(segment_path))
-            segment_name = list(filter(lambda x: 'TL' in x or 'CL' in x, segment_filename.split('-')))[0]
+            segment_name = list(filter(lambda x: 'TL' in x or 'CL' in x or 'TR' in x or 'CR' in x,
+                                       segment_filename.split('-')))[0]
 
             # find all csv files in a given segment
             csv_files = []
